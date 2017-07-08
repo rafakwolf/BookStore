@@ -1,0 +1,35 @@
+﻿@model BookStore.Domain.Model.Autor
+
+@{
+    ViewData["Title"] = "ExclusÃ£o de cadastro";
+}
+
+<h2>Excluir</h2>
+
+<h3>Deseja realmente excluir?</h3>
+<div>
+    <h4>Autor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nacionalidade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nacionalidade)
+        </dd>
+        <input type="hidden" asp-for="Id" />
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            <a asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>
