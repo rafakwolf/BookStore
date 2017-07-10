@@ -121,26 +121,36 @@ namespace BookStore.Service
 
         public LivroViewModel Update(LivroViewModel entity)
         {
-            var dbModel = _context.Livros.FirstOrDefault(x => x.Id == entity.Id);
+            var dbModel = new Livro();
 
-            if (dbModel.Autor == null)
-                dbModel.Autor = new Autor();
+            if (dbModel.Autor == null) dbModel.Autor = new Autor();
             dbModel.Autor.Id = entity.AutorId;
 
-            if (dbModel.Genero == null)
-                dbModel.Genero = new Genero();
-            dbModel.Genero.Id = entity.GeneroId;
 
+
+            if (dbModel.Genero == null) dbModel.Genero = new Genero();
+            dbModel.Genero.Id = entity.GeneroId;
+            
 
             dbModel.Nome = entity.Nome;
             dbModel.Corredor = entity.Corredor;
             dbModel.NumeroPaginas = entity.NumeroPaginas;
             dbModel.Prateleira = entity.Prateleira;
 
+            dbModel.Id = entity.Id;
+
             Validate(dbModel);
 
-            _context.Entry(dbModel.Autor).State = EntityState.Modified;
-            _context.Entry(dbModel.Genero).State = EntityState.Modified;
+            _context.ChangeTracker.TrackGraph(dbModel, e =>
+            {
+                e.Entry.State = EntityState.Unchanged;
+
+                if ((e.Entry.Entity as Livro) == null) return;
+
+                _context.Entry((Livro) e.Entry.Entity).Property("AutorId").IsModified = true;
+                _context.Entry((Livro) e.Entry.Entity).Property("GeneroId").IsModified = true;
+                _context.Entry((Livro) e.Entry.Entity).Property("Id").IsModified = false;
+            });
 
             _context.Livros.Update(dbModel);
             _context.SaveChanges();
