@@ -1,4 +1,4 @@
-﻿@model BookStore.Domain.Model.Livro
+﻿@model BookStore.Domain.Model.LivroViewModel
 
 @{
     ViewData["Title"] = "Detalhes";
@@ -15,6 +15,18 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            Autor
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Autor.Nome)
+        </dd>
+        <dt>
+            Gênero
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Genero.Nome)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.DataLancado)
@@ -43,6 +55,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
     <a asp-action="Index">Voltar</a>
 </div>

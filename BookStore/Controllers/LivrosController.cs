@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BookStore.Domain.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookStore.Domain.Model;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 // ReSharper disable Mvc.ViewNotResolved
 
@@ -58,7 +60,8 @@ namespace BookStore.Web.Controllers
         // POST: Livros/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome,DataLancado,NumeroPaginas,Corredor,Prateleira,Id")] Livro livro)
+        public async Task<IActionResult> Create(
+            [Bind("Nome,DataLancado,AutorId,GeneroId,NumeroPaginas,Corredor,Prateleira,Id")] LivroViewModel livro)
         {
             if (ModelState.IsValid)
             {
@@ -76,6 +79,9 @@ namespace BookStore.Web.Controllers
                 return NotFound();
             }
 
+            ViewBag.Autores = _autorService.GetAll();
+            ViewBag.Generos = _generoService.GetAll();
+
             var livro = await Task.FromResult(_service.GetById(id.GetValueOrDefault()));
             if (livro == null)
             {
@@ -87,7 +93,8 @@ namespace BookStore.Web.Controllers
         // POST: Livros/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Nome,DataLancado,NumeroPaginas,Corredor,Prateleira,Id")] Livro livro)
+        public async Task<IActionResult> Edit(int id, 
+            [Bind("Nome,DataLancado,AutorId,GeneroId,NumeroPaginas,Corredor,Prateleira,Id")] LivroViewModel livro)
         {
             if (id != livro.Id)
             {

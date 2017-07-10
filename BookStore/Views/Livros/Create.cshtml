@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Rendering
 
-@model BookStore.Domain.Model.Livro
+@model BookStore.Domain.Model.LivroViewModel
 
 @{
     ViewData["Title"] = "Novo cadastro";
@@ -32,7 +32,7 @@
             <label asp-for="Autor" class="col-md-2 control-label"></label>
             <div class="col-md-10">
                 
-                <select class="form-control" asp-for="Autor.Id" 
+                <select class="form-control" asp-for="AutorId" 
                         asp-items="@(new SelectList(ViewBag.Autores,"Id","Nome"))">
                     <option>Selecione o Autor</option>
                 </select>
@@ -45,7 +45,7 @@
             <label asp-for="Genero" class="col-md-2 control-label">Gênero</label>
             <div class="col-md-10">
 
-                <select class="form-control" asp-for="Genero.Id"
+                <select class="form-control" asp-for="GeneroId"
                         asp-items="@(new SelectList(ViewBag.Generos,"Id","Nome"))">
                     <option>Selecione o Gênero</option>
                 </select>

@@ -18,7 +18,40 @@ namespace BookStore.Service
             _context = context;
         }
 
-        public IList<Livro> GetAll(string search, int filterType)
+        private LivroViewModel ToViewModel(Livro livro)
+        {
+            return new LivroViewModel
+            {
+                Id = livro.Id,
+                Nome = livro.Nome,
+                Autor = livro.Autor,
+                AutorId = livro.Autor.Id,
+                Genero = livro.Genero,
+                GeneroId = livro.Genero.Id,
+                Corredor = livro.Corredor,
+                Prateleira = livro.Prateleira,
+                DataLancado = livro.DataLancado,
+                NumeroPaginas = livro.NumeroPaginas
+            };
+        }
+
+        private Livro FromViewModel(LivroViewModel livro)
+        {
+            var model = new Livro
+            {
+                Nome = livro.Nome,
+                Corredor = livro.Corredor,
+                Prateleira = livro.Prateleira,
+                DataLancado = livro.DataLancado,
+                NumeroPaginas = livro.NumeroPaginas,
+                Autor = _context.Autores.FirstOrDefault(x => x.Id == livro.AutorId),
+                Genero = _context.Generos.FirstOrDefault(x => x.Id == livro.GeneroId)
+            };
+
+            return model;
+        }
+
+        public IList<LivroViewModel> GetAll(string search, int filterType)
         {
             var livros = _context.Livros.
                 Include(x => x.Autor).
@@ -47,19 +80,33 @@ namespace BookStore.Service
                 }
             }
 
-            return livros.OrderBy(x => x.Nome).ToList();
+            var viewModelList = new List<LivroViewModel>();
+
+            livros.ToList().ForEach(item=>
+            {
+                viewModelList.Add(ToViewModel(item));
+            });
+
+            return viewModelList.OrderBy(x => x.Nome).ToList();
         }
 
-        public Livro GetById(int id)
+        public LivroViewModel GetById(int id)
         {
-            return _context.Livros.FirstOrDefault(x => x.Id == id);
+            var livro = _context.Livros.
+                Include(x => x.Autor).
+                Include(a => a.Genero).
+                FirstOrDefault(x => x.Id == id);
+
+            return ToViewModel(livro);
         }
 
-        public void Save(Livro entity)
+        public void Save(LivroViewModel entity)
         {
-            Validate(entity);
+            var model = FromViewModel(entity);
 
-            _context.Livros.Add(entity);
+            Validate(model);
+
+            _context.Livros.Add(model);
             _context.SaveChanges();
         }
 
@@ -72,11 +119,30 @@ namespace BookStore.Service
                 throw new Exception("Gênero do livro deve ser informado.");
         }
 
-        public Livro Update(Livro entity)
+        public LivroViewModel Update(LivroViewModel entity)
         {
-            Validate(entity);
+            var dbModel = _context.Livros.FirstOrDefault(x => x.Id == entity.Id);
 
-            _context.Livros.Update(entity);
+            if (dbModel.Autor == null)
+                dbModel.Autor = new Autor();
+            dbModel.Autor.Id = entity.AutorId;
+
+            if (dbModel.Genero == null)
+                dbModel.Genero = new Genero();
+            dbModel.Genero.Id = entity.GeneroId;
+
+
+            dbModel.Nome = entity.Nome;
+            dbModel.Corredor = entity.Corredor;
+            dbModel.NumeroPaginas = entity.NumeroPaginas;
+            dbModel.Prateleira = entity.Prateleira;
+
+            Validate(dbModel);
+
+            _context.Entry(dbModel.Autor).State = EntityState.Modified;
+            _context.Entry(dbModel.Genero).State = EntityState.Modified;
+
+            _context.Livros.Update(dbModel);
             _context.SaveChanges();
 
             return entity;

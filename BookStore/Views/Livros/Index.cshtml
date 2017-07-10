@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookStore.Domain.Model.Livro>
+﻿@model IEnumerable<BookStore.Domain.Model.LivroViewModel>
 
 @{
     ViewData["Title"] = "Livros";
@@ -75,7 +75,7 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
             </td>
         </tr>

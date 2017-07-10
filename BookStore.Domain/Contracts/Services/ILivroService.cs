@@ -5,10 +5,10 @@ namespace BookStore.Domain.Contracts.Services
 {
     public interface ILivroService
     {
-        IList<Livro> GetAll(string search, int filterType);
-        Livro GetById(int id);
-        void Save(Livro entity);
-        Livro Update(Livro entity);
+        IList<LivroViewModel> GetAll(string search, int filterType);
+        LivroViewModel GetById(int id);
+        void Save(LivroViewModel entity);
+        LivroViewModel Update(LivroViewModel entity);
         void Delete(int id);
     }
 }
