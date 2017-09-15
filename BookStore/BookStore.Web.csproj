@@ -12,21 +12,15 @@
     <UserSecretsId>aspnet-BookStore-433570bc-f6ef-4a36-bff6-d93e0fb20755</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot/images\banner1.svg" />
-  </ItemGroup>
+  <!--<PropertyGroup>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <StartupObject>Program.cs</StartupObject>
+  </PropertyGroup>-->  
 
-  <ItemGroup>
-    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\original_bootstrap.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\original_bootstrap.css.map" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\original_bootstrap.min.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\original_bootstrap.min.css.map" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\__bootstrap.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\__bootstrap.css.map" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\__bootstrap.min.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\__bootstrap.min.css.map" />
-  </ItemGroup>
+  <!--<ItemGroup>
+    <Content Remove="wwwroot/images\banner1.svg" />
+  </ItemGroup>-->
+
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
