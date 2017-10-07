@@ -13,21 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot/images\banner1.svg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\original_bootstrap.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\original_bootstrap.css.map" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\original_bootstrap.min.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\original_bootstrap.min.css.map" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\__bootstrap.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\__bootstrap.css.map" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\__bootstrap.min.css" />
-    <Content Include="wwwroot\lib\bootstrap\dist\css\__bootstrap.min.css.map" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
@@ -43,6 +28,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
+    <PackageReference Include="Paket" Version="5.113.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
